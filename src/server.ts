@@ -1,5 +1,6 @@
 import routes from './routes';
 import express from 'express';
+import cors from 'cors';
 
 
 export class APIGateway {
@@ -9,6 +10,10 @@ export class APIGateway {
     constructor() {
         this.PORT = process.env.CHAT_API_GATEWAY ?? 5070;
         this._app = express();
+        this._app.use(cors({
+            origin: "*",
+            methods: ["GET", "PUT", "DELETE", "OPTIONS", "HEAD"]
+        }))
         this._app.use('/users', routes.userRoutes);
         this._app.use('/rooms', routes.roomRoutes);
     }

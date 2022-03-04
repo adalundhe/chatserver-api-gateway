@@ -16,8 +16,12 @@ message Room {
     string token = 3;
 }
 
+message RoomsList {
+    repeated Room rooms = 1;
+}
 
 service Rooms {
+    rpc GetRooms(google.protobuf.Empty) returns (RoomsList) {};
     rpc GetRoom(stream RoomName) returns (stream Room) {};
     rpc CreateOrUpdateRoom(stream Room) returns (stream RoomName) {};
     rpc DeleteRoom(stream RoomName) returns (stream google.protobuf.Empty) {};

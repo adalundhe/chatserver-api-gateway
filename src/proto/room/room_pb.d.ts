@@ -58,3 +58,25 @@ export namespace Room {
         token: string,
     }
 }
+
+export class RoomsList extends jspb.Message { 
+    clearRoomsList(): void;
+    getRoomsList(): Array<Room>;
+    setRoomsList(value: Array<Room>): RoomsList;
+    addRooms(value?: Room, index?: number): Room;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): RoomsList.AsObject;
+    static toObject(includeInstance: boolean, msg: RoomsList): RoomsList.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: RoomsList, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RoomsList;
+    static deserializeBinaryFromReader(message: RoomsList, reader: jspb.BinaryReader): RoomsList;
+}
+
+export namespace RoomsList {
+    export type AsObject = {
+        roomsList: Array<Room.AsObject>,
+    }
+}

@@ -27,7 +27,8 @@ export class UserServiceClient {
         stream.on('data', async (chatUser: ChatUser) => {
             const user = await chatUser.toObject();
             await callback({
-                name: user.name
+                name: user.name,
+                tokens: user.tokensList
             });
         });
 

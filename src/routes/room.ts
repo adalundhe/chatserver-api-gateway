@@ -8,6 +8,16 @@ const router = express.Router()
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
+router.get('/list', async (_req, res) => {
+    const client = new RoomServiceClient();
+
+    await client.listRooms({
+        callback: async (rooms: Room[]) => {
+            await res.status(200).json(rooms);
+        }
+    });
+});
+
 router.get('/get', async (req, res) => {
 
     const client = new RoomServiceClient();

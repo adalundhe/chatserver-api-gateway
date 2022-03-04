@@ -38,8 +38,30 @@ function deserialize_user_RoomName(buffer_arg) {
   return room_pb.RoomName.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_user_RoomsList(arg) {
+  if (!(arg instanceof room_pb.RoomsList)) {
+    throw new Error('Expected argument of type user.RoomsList');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_user_RoomsList(buffer_arg) {
+  return room_pb.RoomsList.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var RoomsService = exports.RoomsService = {
+  getRooms: {
+    path: '/user.Rooms/GetRooms',
+    requestStream: false,
+    responseStream: false,
+    requestType: google_protobuf_empty_pb.Empty,
+    responseType: room_pb.RoomsList,
+    requestSerialize: serialize_google_protobuf_Empty,
+    requestDeserialize: deserialize_google_protobuf_Empty,
+    responseSerialize: serialize_user_RoomsList,
+    responseDeserialize: deserialize_user_RoomsList,
+  },
   getRoom: {
     path: '/user.Rooms/GetRoom',
     requestStream: true,

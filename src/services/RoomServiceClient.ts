@@ -3,6 +3,7 @@ import { RoomsClient, ChatRoom, ChatRoomName } from "../proto";
 import * as grpc from '@grpc/grpc-js';
 import { Room } from "../types/room";
 import { Empty } from "google-protobuf/google/protobuf/empty_pb";
+import { RoomsList } from "proto/room/room_pb";
 
 
 export class RoomServiceClient {
@@ -18,6 +19,16 @@ export class RoomServiceClient {
             `${roomServiceIp}:${roomServicePort}`,
             grpc.credentials.createInsecure()
         )
+    }
+
+    listRooms = async ({ callback }: {callback(rooms: Room[]): Promise<void>}) => {
+        const listRequest = new Empty();
+        await this.client.getRooms(listRequest, async (err, response: RoomsList) => {
+            if (err) throw err;
+
+            const rooms = await response.toObject();
+            await callback(rooms.roomsList)
+        })
     }
 
     getRoom = async ({ roomName, token, callback }: {roomName: string, token: string, callback(room: Room): Promise<void>}) => {
